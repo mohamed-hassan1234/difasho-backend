@@ -3,7 +3,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
-const userAuth = require("../middleware/userAuth");
+
 
 const router = express.Router();
 
@@ -84,7 +84,7 @@ router.post("/login", async (req, res) => {
 });
 
 // Get current user
-router.get("/me", userAuth, async (req, res) => {
+router.get("/me",  async (req, res) => {
   res.json({
     id: req.user._id,
     name: req.user.name,
@@ -97,7 +97,7 @@ router.get("/me", userAuth, async (req, res) => {
 });
 
 // Update user
-router.put("/:id", userAuth, async (req, res) => {
+router.put("/:id",  async (req, res) => {
   try {
     if (req.user._id.toString() !== req.params.id && req.user.role !== "admin") {
       return res.status(403).json({ message: "Access denied" });
@@ -140,7 +140,7 @@ router.put("/:id", userAuth, async (req, res) => {
 });
 
 // Delete user
-router.delete("/:id", userAuth, async (req, res) => {
+router.delete("/:id",  async (req, res) => {
   try {
     if (req.user._id.toString() !== req.params.id && req.user.role !== "admin") {
       return res.status(403).json({ message: "Access denied" });
@@ -155,7 +155,7 @@ router.delete("/:id", userAuth, async (req, res) => {
 });
 
 // Logout (client-side token removal)
-router.post("/logout", userAuth, (req, res) => {
+router.post("/logout",  (req, res) => {
   res.json({ message: "Logged out successfully" });
 });
 
