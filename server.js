@@ -21,12 +21,11 @@ const app = express();
 
 // Middlewares
 app.use(express.json());
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: ["http://localhost:5173", "https://difacash-frontend7.vercel.app"], 
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 app.use("/uploads", express.static("uploads"));
 
 // Routes
